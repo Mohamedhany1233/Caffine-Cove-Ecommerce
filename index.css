@@ -81,7 +81,7 @@
         
         .home {
             background: url(Images/home-bg.png) no-repeat center;
-            background-size: cover;
+            background-size:contain;
             background-color: var(--bg-color);
             min-height: 100vh;
             display: flex;
@@ -692,4 +692,5 @@
             .copyright p {
                 font-size: 13px;
             }
+
         }
