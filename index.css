@@ -663,6 +663,7 @@
             }
             .div-text .content-text{
                 text-align: center;
+                justify-content: center;
             }
             .map {
                 height: 350px;
@@ -696,4 +697,5 @@
             }
 
         }
+
 
