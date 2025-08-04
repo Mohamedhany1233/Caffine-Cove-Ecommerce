@@ -661,7 +661,9 @@
             .contact .all-columns {
                 grid-template-columns: 1fr;
             }
-            
+            .div-text .content-text{
+                text-align: center;
+            }
             .map {
                 height: 350px;
             }
@@ -694,3 +696,4 @@
             }
 
         }
+
