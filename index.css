@@ -276,7 +276,7 @@
         
         .content-box {
             display: flex;
-            background: darkgray;
+            background: white;
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
@@ -340,7 +340,7 @@
         }
         
         .content-card {
-            background: dark-gray;
+            background: darkgray;
             border-radius: 15px;
             padding: 30px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
@@ -695,6 +695,7 @@
                 font-size: 13px;
             }
         }
+
 
 
 
