@@ -921,11 +921,6 @@ footer .content {
         font-size: 13px;
     }
 }
-@media (max-height: 1366px) {
-      .carts-item{
-        height:10px;
-    }
-}
 @media (max-width: 912px) {
       .carts-item{
         height:1050px;
@@ -997,6 +992,7 @@ footer .content {
         height: 455px;
     }
 }
+
 
 
 
