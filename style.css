@@ -269,9 +269,11 @@ header {
     margin-top: 10px;
     gap: 4px;
     background-color:var(--dark-gray);
+    color:var(--light-brown);
 }
 .total-container .sub-total .total-checkout .deleteAll:hover{
-    color:var(--light-brown);
+    background-color: var(--light-brown);
+    color: var(--dark-gray);
 }
 /* Home Section */
 #home, #about, #testimonials, #contact {
@@ -509,14 +511,18 @@ header {
     font-size: 24px;
     font-weight: 700;
     color: var(--light-brown);
-    
+}
+.content-price .quantity {
+    font-family:"Oswald", sans-serif ;
+    text-transform: uppercase;
+    margin-top: 20px;
 }
 
 .content-box button {
     background-color:var(--light-brown);
     color:#333;
     padding: 12px;
-    margin-top: 20px;
+    margin-top: 5px;
     font-size: 20px;
     cursor: pointer;
     width: 180px;
@@ -992,7 +998,3 @@ footer .content {
         height: 455px;
     }
 }
-
-
-
-
