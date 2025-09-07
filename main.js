@@ -282,7 +282,7 @@ else{
     checkout.style.display = 'none'
     showCartItem()
 }
-
+}
 deleteAll.onclick = function() {
     CartsItem.innerHTML = ''
     totalPrice.innerHTML = '$0'
@@ -290,4 +290,5 @@ deleteAll.onclick = function() {
     localStorage.clear()
     location.reload()
 }
-}
+delAndCheck()
+
