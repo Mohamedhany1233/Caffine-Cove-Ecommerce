@@ -20,13 +20,14 @@ let DataItemCart = []
 let all = document.querySelector('.all-columns')
 let IdCount = 1
 
-function CreateCard(imgSource,h4T,p,price,) {
+function CreateCard(imgSource,h4T,p,price,Quantity) {
     let Card = {
         id:IdCount++,
         imgSrc:imgSource,
         h4:h4T,
         pT:p,
-        Price: price
+        Price: price,
+        cardQuantity: Quantity || 0
     }
     DataCards.push(Card)
     ShowCard()
@@ -60,6 +61,11 @@ function ShowCard() {
         pPrice.appendChild(document.createTextNode(ele.Price))
         contentPrice.appendChild(pPrice)
         contentBox.appendChild(contentPrice)
+        //quantity
+        let quantity = document.createElement('h3')
+        quantity.appendChild(document.createTextNode(`quantity : ${ele.cardQuantity}`))
+        quantity.classList.add('quantity')
+        contentPrice.appendChild(quantity)
         //put content-box in All
         all.appendChild(contentBox)
         //btn
@@ -67,6 +73,7 @@ function ShowCard() {
         btn.appendChild(document.createTextNode('Add To Cart'))
         contentBox.appendChild(btn)
     })
+    
 }
 
 CreateCard('Images/menu-1.png','Espresso','A strong, rich coffee made by forcing hot water through finely-ground coffee beans.','$2.99')
@@ -160,8 +167,11 @@ function showCartItem() {
         //increament        
         controlsIncreament.addEventListener('click', () => {
         ele.quantity++
-        GetTotalPrice()
-        setCartItemInLS()
+            GetTotalPrice()
+            setCartItemInLS()
+            updateCardsAndShow()
+            ShowCard()
+            delAndCheck()
         })
         //decreament
         controlsDecreament.addEventListener('click', () => {
@@ -169,10 +179,14 @@ function showCartItem() {
             ele.quantity--
             GetTotalPrice()
             setCartItemInLS()
+            updateCardsAndShow() 
+            delAndCheck()
         } 
         else {
             DataItemCart = DataItemCart.filter(item => item.CartItemId !== ele.CartItemId)
             GetTotalPrice()
+            delAndCheck()
+            updateCardsAndShow()
         }
         setCartItemInLS()
         CartCount()
@@ -199,28 +213,45 @@ if (localStorage.getItem('CartCount')) {
     cartCounter.innerHTML = localStorage.getItem('CartCount') 
 }
 
-let AddToCartBTNS =  document.querySelectorAll('.all-columns .content-box button')
-AddToCartBTNS.forEach(function (btns) {
-    btns.addEventListener('click', (e) => {
-        let TargetId = e.target.parentElement.getAttribute('data-id')
-        let product = DataCards.find(item => item.id == TargetId)
-        let check = DataItemCart.find(ele => ele.CartItemId == TargetId)
-        
-        if (check) {
-            check.quantity++;
-            showCartItem()
-            //increament if i add item again
-            setCartItemInLS()
-        }
-        else if (product) {
-            CreateCartItem(product.id,product.imgSrc, product.h4, product.Price, )
-            CartCount()
-            setCartItemInLS()
-        }   
-        GetTotalPrice()
-    })
-    
-})
+
+function cardsQuan() { 
+    DataCards.forEach(cards => {
+        let cartItem = DataItemCart.find(itemCart => itemCart.CartItemId == cards.id);
+        cards.cardQuantity = cartItem ? cartItem.quantity : 0;
+    });
+}
+cardsQuan();
+
+function updateCardsAndShow() {
+    cardsQuan();
+    ShowCard();
+    bindAddToCartEvents();
+}
+
+function bindAddToCartEvents() {
+    let AddToCartBTNS =  document.querySelectorAll('.all-columns .content-box button');
+    AddToCartBTNS.forEach(function (btns) {
+        btns.addEventListener('click', (e) => {
+            let TargetId = e.target.parentElement.getAttribute('data-id');
+            let product = DataCards.find(item => item.id == TargetId);
+            let check = DataItemCart.find(ele => ele.CartItemId == TargetId);
+            if (check) {
+                check.quantity++;
+                setCartItemInLS();
+            } 
+            else if (product) {
+                CreateCartItem(product.id,product.imgSrc, product.h4, product.Price, );
+                CartCount();
+                setCartItemInLS();
+            }
+            updateCardsAndShow();
+            GetTotalPrice();
+            delAndCheck()
+        });
+    });
+}
+
+updateCardsAndShow();
 
 let totalPrice = document.querySelector('.total')
 
@@ -238,12 +269,25 @@ function GetTotalPrice() {
     localStorage.setItem('TotalPrice', JSON.stringify(sum.toFixed(2)));
 }
 
-
+let checkout = document.querySelector('.checkout')
 let deleteAll = document.querySelector('.deleteAll')
+
+function delAndCheck() {
+if (DataItemCart.length > 0) {
+    checkout.style.display = 'block'
+    deleteAll.style.display = 'block'
+}
+else{
+    deleteAll.style.display = 'none'
+    checkout.style.display = 'none'
+    showCartItem()
+}
+
 deleteAll.onclick = function() {
     CartsItem.innerHTML = ''
     totalPrice.innerHTML = '$0'
     cartCounter.innerHTML = ''
     localStorage.clear()
     location.reload()
+}
 }
