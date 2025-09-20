@@ -18,7 +18,6 @@
 }
 
 body {
-    overflow-x: hidden;
     font-family: "Open Sans", sans-serif;
 }
 
@@ -66,6 +65,7 @@ header {
     color: var(--light-brown);
     background-color: rgba(255, 255, 255, 0.1);
 }
+
 .hamburger {
     display: none;
     cursor: pointer;
@@ -74,6 +74,7 @@ header {
     font-size: 24px;
     color: var(--dark-gray);
 }
+
 /* overlays */
 .overlay {
     position: fixed;
@@ -86,7 +87,7 @@ header {
     opacity: 0;
     visibility: hidden;
     transition: 0.4s ease;
-    z-index: 100; /* أقل من الكارت */
+    z-index: 100;
 }
 
 .overlay.active {
@@ -127,6 +128,7 @@ header {
 .cart-title h3 {
     font-family:"Lexend Deca", sans-serif;
     font-size: 25px;
+    margin-right: 90px;
 }
 .close-cart{
     font-size: 15px;
@@ -178,6 +180,33 @@ header {
 .cart-item .info {
     flex: 1;
 }
+
+.cart-item .info i {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    border: 1px solid #ddd;
+}
+
+.cart-item .info i:hover {
+    background-color: #bf8c5a;
+    color: #fff;
+    transform: scale(1.1);
+    border-color: #bf8c5a;
+}
+
+
 .cart-item .controls {
     display: flex;
     align-items: center;
@@ -435,6 +464,13 @@ header {
     color: #555;
 }
 
+.auto-show {
+    animation: appear both;
+    animation-timeline: view();
+    animation-duration: 2s;
+    animation-range: entry 20% cover 100vh;
+}
+
 /* Menu Section */
 .menu {
     background-color: var(--bg-color);
@@ -515,6 +551,7 @@ header {
 .content-price .quantity {
     font-family:"Oswald", sans-serif ;
     text-transform: uppercase;
+    font-size: 20px;
     margin-top: 20px;
 }
 
