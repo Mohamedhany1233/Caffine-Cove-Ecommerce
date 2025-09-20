@@ -63,7 +63,7 @@ function ShowCard() {
         contentBox.appendChild(contentPrice)
         //quantity
         let quantity = document.createElement('h3')
-        quantity.appendChild(document.createTextNode(`quantity : ${ele.cardQuantity}`))
+        quantity.appendChild(document.createTextNode(`${ele.cardQuantity}`))
         quantity.classList.add('quantity')
         contentPrice.appendChild(quantity)
         //put content-box in All
@@ -136,6 +136,18 @@ function showCartItem() {
         let CartInfoH3 = document.createElement('h3')
         CartInfoH3.appendChild(document.createTextNode(ele.CartItemName))
         CartInfo.appendChild(CartInfoH3)
+        //delete icon
+        let deleteIcon = document.createElement('i')
+        deleteIcon.className = 'fa-solid fa-trash'
+        CartInfoH3.appendChild(deleteIcon)
+
+        deleteIcon.onclick = function () {
+            DataItemCart = DataItemCart.filter(item => item.CartItemId !== ele.CartItemId)
+            showCartItem()
+            setCartItemInLS()
+            updateCardsAndShow() 
+            GetTotalPrice()
+        }
         //controls div
         let Cartcontrols = document.createElement('div')
         Cartcontrols.setAttribute('data-id', ele.CartItemId)
@@ -163,10 +175,10 @@ function showCartItem() {
         Cartcontrols.appendChild(price)
         //add new item
         CartsItem.appendChild(cartItem)
-
         //increament        
         controlsIncreament.addEventListener('click', () => {
-        ele.quantity++
+            ele.quantity++
+            console.log(cartItem)
             GetTotalPrice()
             setCartItemInLS()
             updateCardsAndShow()
@@ -192,6 +204,7 @@ function showCartItem() {
         CartCount()
         })
     })
+    console.log(CartsItem)
 }
 
 function CartCount() {
@@ -273,16 +286,18 @@ let checkout = document.querySelector('.checkout')
 let deleteAll = document.querySelector('.deleteAll')
 
 function delAndCheck() {
-if (DataItemCart.length > 0) {
-    checkout.style.display = 'block'
-    deleteAll.style.display = 'block'
+    if (DataItemCart.length > 0) {
+        checkout.style.display = 'block'
+        deleteAll.style.display = 'block'
+    }
+    else{
+        deleteAll.style.display = 'none'
+        checkout.style.display = 'none'
+        showCartItem()
+    }
 }
-else{
-    deleteAll.style.display = 'none'
-    checkout.style.display = 'none'
-    showCartItem()
-}
-}
+
+
 deleteAll.onclick = function() {
     CartsItem.innerHTML = ''
     totalPrice.innerHTML = '$0'
@@ -291,4 +306,5 @@ deleteAll.onclick = function() {
     location.reload()
 }
 delAndCheck()
+
 
