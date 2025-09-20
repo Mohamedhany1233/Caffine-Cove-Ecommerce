@@ -89,6 +89,7 @@ let cartContainer = document.querySelector('.cart-container')
 let cartCounter = document.getElementById('CartCounter')
 let CartsItem = document.querySelector('.carts-item')
 let CloseCart = document.querySelector('.close-cart')
+let totalContainer = document.querySelector('.total-container')
 const overlay = document.getElementById("overlay");
 
 cart.onclick = function () {
@@ -287,12 +288,11 @@ let deleteAll = document.querySelector('.deleteAll')
 
 function delAndCheck() {
     if (DataItemCart.length > 0) {
-        checkout.style.display = 'block'
-        deleteAll.style.display = 'block'
+        totalContainer.style.display = 'block'
     }
     else{
-        deleteAll.style.display = 'none'
-        checkout.style.display = 'none'
+        totalContainer.style.display = 'none'
+        console.log(totalContainer)
         showCartItem()
     }
 }
